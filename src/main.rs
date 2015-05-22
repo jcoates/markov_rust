@@ -38,17 +38,7 @@ fn main() {
             Command::Train(path) => {
                 match markov {
                     Some(ref mut m) => {
-                        let mut file = match File::open(&path) {
-                            Ok(f) => f,
-                            Err(_) => {
-                                println!("Could not open file {}", path.to_str().unwrap());
-                                continue;
-                            }
-                        };
-                        let read_file = &mut BufReader::new(file);
-                        println!("Training on data found in {}", path.to_str().unwrap());
-                        m.add_training_data(read_file);
-                        println!("Training complete");
+                        train_chain(m, path);
                     },
                     None => {
                         println!("Please create markov chain first");
@@ -71,6 +61,22 @@ fn main() {
             }
         }
     }
+}
+
+// train_chain: given a markov chain and a path buffer, trains
+// the markov chain on the file at the given path
+fn train_chain(m : &mut MarkovChain, path : PathBuf) {
+    let file = match File::open(&path) {
+        Ok(f) => f,
+        Err(_) => {
+            println!("Could not open file {}", path.to_str().unwrap());
+            return;
+        }
+    };
+    let read_file = &mut BufReader::new(file);
+    println!("Training on data found in {}", path.to_str().unwrap());
+    m.add_training_data(read_file);
+    println!("Training complete");
 }
 
 // join_sentence : cruddily joins an array of strings with spaces
