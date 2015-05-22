@@ -192,7 +192,21 @@ mod tests {
         let mut markov = MarkovChain::new(1);
         markov.add_training_data(&mut string_to_buffer("The cat is nice to the dog."));
         let sentence = markov.create_sentence();
-        assert_eq!(sentence, string_vec(vec!["the", "cat", "is", "nice", "to", "the", "dog", "."]));
+        let mut sentence_iter = sentence.iter();
+        assert_eq!("the", sentence_iter.next().unwrap());
+        while let Some(word) = sentence_iter.next() {
+            if word == &"cat".to_string() {
+                assert_eq!("is", sentence_iter.next().unwrap());
+                assert_eq!("nice", sentence_iter.next().unwrap());
+                assert_eq!("to", sentence_iter.next().unwrap());
+                assert_eq!("the", sentence_iter.next().unwrap());
+            } else if word == &"dog".to_string() {
+                assert_eq!(".", sentence_iter.next().unwrap());
+                assert_eq!(None, sentence_iter.next());
+            } else {
+                assert!(false);
+            }
+        }
     }
 
     fn string_vec(input : Vec<&str>) -> Vec<String>{
