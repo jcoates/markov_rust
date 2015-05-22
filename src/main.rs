@@ -4,18 +4,16 @@ extern crate readline;
 
 mod markov;
 
-use std::str::from_utf8;
 use std::ffi::CString;
 use std::fs::File;
-use std::io;
-use std::path::{PathBuf, Path};
 use std::io::BufReader;
+use std::path::{PathBuf, Path};
+use std::str::from_utf8;
 
 use markov::MarkovChain;
 
 #[allow(unused)]
 fn main() {
-    let stdout = io::stdout();
     let mut markov : Option<MarkovChain> = None;
     
     let prompt = CString::new("-> ").unwrap();
