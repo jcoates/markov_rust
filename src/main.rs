@@ -48,10 +48,8 @@ fn main() {
             Command::Generate(n) => {
                 match markov {
                     Some(ref mut m) => {
-                        let mut x = 0;
-                        while x < n  {
+                        for _ in 0..n {
                             println!("{}", join_sentence(m.create_sentence()));
-                            x += 1;
                         }
                     },
                     None => {
