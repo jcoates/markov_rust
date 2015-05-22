@@ -119,7 +119,7 @@ impl MarkovChain {
             }
             let processed_line = MarkovChain::process_training_line(line);
 
-            let words = processed_line.split(' ');
+            let words = processed_line.split(' ').filter(|&m| m != "");
             for word in words {                
                 self.update_states(key.clone(), &word);
                 key.remove(0);
