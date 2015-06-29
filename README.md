@@ -7,7 +7,7 @@ I then wanted to update some piece of code to rust 1.0, and then wanted to test 
 
 #How to use this stuff
 
-You need rust installed to run it, it was built on rust 1.0.
+You need rust installed to build it, it was developed for rust 1.0.
 
 From within this directory you can `cargo run` and get a command line style prompt.
 
